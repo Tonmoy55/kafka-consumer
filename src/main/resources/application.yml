@@ -10,6 +10,9 @@ spring:
       #value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       # properties:
         # spring.json.trusted.packages: '*'
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/wikimedia-stream
 server:
   port: 8282
 
