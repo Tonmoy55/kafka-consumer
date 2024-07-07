@@ -18,5 +18,6 @@ public class WikiMediaStreamShortDocument {
     private String namespace;
     private String title;
     private String title_url;
+    private String date;
 
 }

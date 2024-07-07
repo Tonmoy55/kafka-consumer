@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -29,13 +31,15 @@ public class WikiMediaConsumer {
 
         var customWikiMediaMsg = objectMapper.readValue(msg, CustomWikiMediaMsgDto.class);
 
-        var wikiMediaMsg =WikiMediaStreamShortDocument.builder()
-                .id_wikimedia(customWikiMediaMsg.getIdWikimedia())
-                .type(customWikiMediaMsg.getType())
-                .namespace(customWikiMediaMsg.getNamespace())
-                .title(customWikiMediaMsg.getTitle())
-                .title_url(customWikiMediaMsg.getTitleUrl())
-                .build();
+        var wikiMediaMsg = WikiMediaStreamShortDocument
+                                .builder()
+                                .id_wikimedia(customWikiMediaMsg.getIdWikimedia())
+                                .type(customWikiMediaMsg.getType())
+                                .namespace(customWikiMediaMsg.getNamespace())
+                                .title(customWikiMediaMsg.getTitle())
+                                .title_url(customWikiMediaMsg.getTitleUrl())
+                                .date(ZonedDateTime.now().toString())
+                                .build();
         mongoTemplate.save(wikiMediaMsg);
     }
 }
